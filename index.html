@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<meta charset="UTF-8" />
+<title>AngularJS TIPS</title>
+</head>
+<body ng-controller="MyController">
+<form name="myForm" novalidate>
+  <label for="name">名前：</label>
+  <input id="name" name="name" type="text" ng-model="name" /><br />
+  <label>
+  <input type="checkbox" ng-model="record" />
+  名前を記録する
+  </label><br />
+  <button ng-click="onclick()">保存</button>
+</form>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+<!--1ngCookiesモジュールをインポート-->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-cookies.min.js"></script>
+<script>
+// 2ngCookiesモジュールへの依存関係を設定
+angular.module('myApp', [ 'ngCookies' ])
+  .controller('MyController',
+  ['$scope', '$cookies', function($scope, $cookies) {
+    // 5テキストボックスにクッキー値を反映
+    $scope.name = $cookies.get('name');
+    $scope.record = true;
+
+    $scope.onclick = function() {
+      if($scope.record) {
+      // 3［名前を記録する］がチェックされていれば、クッキーを登録
+        var expire = new Date();
+        expire.setMonth(expire.getMonth() + 3);
+        $cookies.put('name', $scope.name, {
+          expires: expire
+        });
+      } else {
+        // 4チェックされていなければ、クッキーを破棄
+        $cookies.remove('name');
+      }
+    };
+  }]);
+</script>
+</body>
+</html>
