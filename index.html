@@ -35,7 +35,10 @@
             var expire = new Date();
             expire.setMonth(expire.getMonth() + 3);
             $cookies.put('name', $scope.name, {
-              expires: expire
+              domain: 'takayamag.github.io',
+              path: '/ng-test',
+              expires: expire,
+              secure: true
             });
           } else {
             // チェックされていなければ、クッキーを破棄
