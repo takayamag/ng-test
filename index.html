@@ -37,8 +37,8 @@
             $cookies.put('name', $scope.name, {
               domain: 'takayamag.github.io',
               path: '/',
-              expires: expire,
-              secure: true
+              expires: 0,
+              secure: false
             });
           } else {
             // チェックされていなければ、クッキーを破棄
